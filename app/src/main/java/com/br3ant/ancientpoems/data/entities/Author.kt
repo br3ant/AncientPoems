@@ -1,6 +1,8 @@
 package com.br3ant.ancientpoems.data.entities
 
 import androidx.room.Entity
+import com.br3ant.ancientpoems.data.APConstants
+import java.util.*
 
 /**
  * <pre>
@@ -14,11 +16,21 @@ import androidx.room.Entity
  */
 @Entity(
         tableName = "author",
-        primaryKeys = ["name"]
+        primaryKeys = ["id", "name"]
 )
 
 class Author {
+    var id: String = UUID.randomUUID().toString()
     var name: String = ""
-    var description: String = ""
+    var description: String? = null
     var short_description: String? = null
+    var desc: String? = null
+    var dynasty: String = APConstants.DYNASTY_NONE
+
+    fun displayDesc(): String? = when (dynasty) {
+        APConstants.DYNASTY_TANG_POEM -> desc
+        APConstants.DYNASTY_SONG_CI -> description
+        else -> "未知"
+    }
+
 }

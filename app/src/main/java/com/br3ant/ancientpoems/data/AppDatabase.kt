@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.br3ant.ancientpoems.data.dao.AuthorDao
-import com.br3ant.ancientpoems.data.dao.SongCiDao
+import com.br3ant.ancientpoems.data.dao.PoemDao
 import com.br3ant.ancientpoems.data.entities.Author
-import com.br3ant.ancientpoems.data.entities.SongCi
+import com.br3ant.ancientpoems.data.entities.Poem
 
 /**
  * <pre>
@@ -21,7 +21,7 @@ import com.br3ant.ancientpoems.data.entities.SongCi
  */
 @Database(
     entities = [
-        SongCi::class,
+        Poem::class,
         Author::class
     ],
     version = 1,
@@ -41,7 +41,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-    abstract fun songCiDao(): SongCiDao
+    abstract fun poemDao(): PoemDao
 
     abstract fun authorDao(): AuthorDao
 }
