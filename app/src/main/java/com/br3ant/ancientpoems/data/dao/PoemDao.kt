@@ -26,6 +26,9 @@ interface PoemDao {
     @Query("SELECT * FROM poem where dynasty = :dynasty LIMIT 100")
     fun observeByDynasty(dynasty: String): LiveData<List<Poem>>
 
+    @Query("SELECT * FROM poem where dynasty = :dynasty LIMIT :limit offset ((:page - 1) * :limit)")
+    suspend fun pageGetPoem(dynasty: String, page: Int, limit: Int): List<Poem>
+
     @Query("DELETE FROM poem")
     fun deleteAll()
 

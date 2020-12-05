@@ -5,6 +5,9 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.Utils
 import com.br3ant.ancientpoems.data.AppDatabase
 import com.drake.brv.utils.BRV
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.MaterialHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
 /**
  * <pre>
@@ -25,6 +28,9 @@ class APP : Application() {
         LogUtils.getConfig().isLog2FileSwitch = true
 
         BRV.modelId = BR.m
+
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator { _, _ -> MaterialHeader(this) }
+        SmartRefreshLayout.setDefaultRefreshFooterCreator { _, _ -> ClassicsFooter(this) }
     }
 
     companion object {
