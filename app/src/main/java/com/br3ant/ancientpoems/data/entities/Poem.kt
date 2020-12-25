@@ -1,9 +1,7 @@
 package com.br3ant.ancientpoems.data.entities
 
 import androidx.room.Entity
-import androidx.room.TypeConverters
 import com.br3ant.ancientpoems.data.APConstants
-import com.br3ant.ancientpoems.data.converters.StringConverter
 import java.util.*
 
 /**
@@ -17,14 +15,14 @@ import java.util.*
  * </pre>
  */
 @Entity(
-        tableName = "poem",
-        primaryKeys = ["id"]
+    tableName = "poem",
+    primaryKeys = ["id"]
 )
-@TypeConverters(StringConverter::class)
+
 class Poem {
     var id: String = UUID.randomUUID().toString()
     var author: String = ""
-    var paragraphs: List<String> = emptyList()
+    var paragraphs: String = "[]"
     var rhythmic: String = ""
     var title: String = ""
     var chapter: String = ""

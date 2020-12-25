@@ -3,30 +3,38 @@ package com.br3ant.ancientpoems
 import android.content.Context
 import android.content.Intent
 import android.widget.TextView
+import androidx.lifecycle.rxLifeScope
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.br3ant.ancientpoems.data.entities.Poem
+import com.br3ant.ancientpoems.databinding.ActivityPoemBinding
 import com.br3ant.base.BaseActivity
+import com.br3ant.utils.toList
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
-import kotlinx.android.synthetic.main.activity_poem.*
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
+import com.hi.dhl.binding.viewbind
+import rxhttp.RxHttp
+import rxhttp.toResponse
 
 class PoemActivity : BaseActivity(R.layout.activity_poem, keepScreenOn = true) {
 
+    private val binding: ActivityPoemBinding by viewbind()
+
+    private val dynasty: String
+        get() = intent.getStringExtra(KEY_DYNASTY) ?: ""
+
     override fun initView() {
 
-        rv_list.linear().setup {
+        binding.rvList.linear().setup {
             addType<Poem>(R.layout.item_poem)
 
             onBind {
                 findView<TextView>(R.id.tv_paragraphs).text =
-                    getModel<Poem>().paragraphs.joinToString("\n")
+                    getModel<Poem>().paragraphs.toList<String>().joinToString("\n")
             }
 
             onLongClick(R.id.item_view) {
-                MainScope().launch {
+                rxLifeScope.launch {
                     ToastUtils.showLong(
                         APP.db.authorDao().findByName(getModel<Poem>().author)?.displayDesc()
                     )
@@ -34,15 +42,25 @@ class PoemActivity : BaseActivity(R.layout.activity_poem, keepScreenOn = true) {
             }
         }
 
-        page.onRefresh {
-            MainScope().launch {
-                val data = APP.db.poemDao().pageGetPoem(intent.getStringExtra(KEY_DYNASTY) ?: "", index, LIMIT)
+        binding.page.onRefresh {
+            rxLifeScope.launch({
+//                val data = APP.db.poemDao().pageGetPoem(dynasty, index, LIMIT)
+
+                val data = RxHttp.get("/getPoems")
+                    .add("dynasty", dynasty)
+                    .add("page", index)
+                    .add("limit", LIMIT).toResponse<List<Poem>>().await()
+
                 LogUtils.iTag("hqq", "getData size ${data.size}")
 
                 addData(data) {
                     data.size == LIMIT // 判断是否有更多页
                 }
-            }
+            }, onError = {
+                binding.page.finish(false)
+                ToastUtils.showShort(it.message)
+            }, onFinally = {
+            })
 
         }.autoRefresh()
     }

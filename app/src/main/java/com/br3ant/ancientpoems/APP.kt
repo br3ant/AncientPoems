@@ -4,6 +4,7 @@ import android.app.Application
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.Utils
 import com.br3ant.ancientpoems.data.AppDatabase
+import com.br3ant.ancientpoems.util.rxhttp.RxHttpUtils
 import com.drake.brv.utils.BRV
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.MaterialHeader
@@ -25,6 +26,7 @@ class APP : Application() {
         super.onCreate()
 
         Utils.init(this)
+        RxHttpUtils.init()
         LogUtils.getConfig().isLog2FileSwitch = true
 
         BRV.modelId = BR.m

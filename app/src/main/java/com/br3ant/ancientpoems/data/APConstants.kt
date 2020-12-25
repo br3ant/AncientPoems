@@ -15,4 +15,10 @@ object APConstants {
     const val DYNASTY_SONG_POEM = "song_poem"
     const val DYNASTY_TANG_POEM = "tang_poem"
     const val DYNASTY_SONG_CI = "song_ci"
+
+    const val WORD_NONE = "word_none"
+    const val WORD_CI = "word_ci"
+    const val WORD_IDIOM = "word_idiom"
+    const val WORD_WORD = "word_word"
+    const val WORD_XIE_HOU_YU = "word_xiehouyu"
 }

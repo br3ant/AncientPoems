@@ -8,6 +8,7 @@ import com.br3ant.ancientpoems.data.dao.AuthorDao
 import com.br3ant.ancientpoems.data.dao.PoemDao
 import com.br3ant.ancientpoems.data.entities.Author
 import com.br3ant.ancientpoems.data.entities.Poem
+import com.br3ant.ancientpoems.data.entities.Word
 
 /**
  * <pre>
@@ -22,10 +23,11 @@ import com.br3ant.ancientpoems.data.entities.Poem
 @Database(
     entities = [
         Poem::class,
-        Author::class
+        Author::class,
+        Word::class
     ],
     version = 1,
-    exportSchema = false
+    exportSchema = true
 )
 
 abstract class AppDatabase : RoomDatabase() {
