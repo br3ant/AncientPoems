@@ -2,7 +2,6 @@ package com.br3ant.ancientpoems.data.entities
 
 import androidx.room.Entity
 import com.br3ant.ancientpoems.data.APConstants
-import java.util.*
 
 /**
  * <pre>
@@ -20,7 +19,7 @@ import java.util.*
 )
 
 class Word {
-    var id: String = UUID.randomUUID().toString()
+    var id: Long = 0
     var ci: String? = null
     var explanation: String? = null
     var example: String? = null

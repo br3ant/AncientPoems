@@ -2,7 +2,6 @@ package com.br3ant.ancientpoems.data.entities
 
 import androidx.room.Entity
 import com.br3ant.ancientpoems.data.APConstants
-import java.util.*
 
 /**
  * <pre>
@@ -16,12 +15,12 @@ import java.util.*
  */
 @Entity(
         tableName = "author",
-        primaryKeys = ["id", "name"]
+        primaryKeys = ["id"]
 )
 
 class Author {
-    var id: String = UUID.randomUUID().toString()
-    var name: String = ""
+    var id: Long = 0
+    var name: String? = ""
     var description: String? = null
     var short_description: String? = null
     var desc: String? = null

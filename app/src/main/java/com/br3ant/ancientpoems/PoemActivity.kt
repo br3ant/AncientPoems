@@ -8,13 +8,12 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.br3ant.ancientpoems.data.entities.Poem
 import com.br3ant.ancientpoems.databinding.ActivityPoemBinding
+import com.br3ant.ancientpoems.repository.PoemRepository
 import com.br3ant.base.BaseActivity
 import com.br3ant.utils.toList
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
 import com.hi.dhl.binding.viewbind
-import rxhttp.RxHttp
-import rxhttp.toResponse
 
 class PoemActivity : BaseActivity(R.layout.activity_poem, keepScreenOn = true) {
 
@@ -36,7 +35,7 @@ class PoemActivity : BaseActivity(R.layout.activity_poem, keepScreenOn = true) {
             onLongClick(R.id.item_view) {
                 rxLifeScope.launch {
                     ToastUtils.showLong(
-                        APP.db.authorDao().findByName(getModel<Poem>().author)?.displayDesc()
+                        APP.db.authorDao().findByName(getModel<Poem>().author ?: "")?.displayDesc()
                     )
                 }
             }
@@ -44,12 +43,7 @@ class PoemActivity : BaseActivity(R.layout.activity_poem, keepScreenOn = true) {
 
         binding.page.onRefresh {
             rxLifeScope.launch({
-//                val data = APP.db.poemDao().pageGetPoem(dynasty, index, LIMIT)
-
-                val data = RxHttp.get("/getPoems")
-                    .add("dynasty", dynasty)
-                    .add("page", index)
-                    .add("limit", LIMIT).toResponse<List<Poem>>().await()
+                val data = PoemRepository.pageGetPoems(dynasty, index, LIMIT)
 
                 LogUtils.iTag("hqq", "getData size ${data.size}")
 
