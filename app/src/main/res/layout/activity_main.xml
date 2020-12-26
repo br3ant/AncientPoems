@@ -24,4 +24,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_tang_poem" />
 
+    <Button
+        android:id="@+id/btn_yuan_qu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="@string/yuan_qu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_song_ci" />
+
+    <Button
+        android:id="@+id/btn_shi_jing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="@string/shi_jing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_yuan_qu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

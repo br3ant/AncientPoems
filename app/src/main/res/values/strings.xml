@@ -2,4 +2,6 @@
     <string name="app_name">AncientPoems</string>
     <string name="tang_poem">唐诗</string>
     <string name="song_ci">宋词</string>
+    <string name="yuan_qu">元曲</string>
+    <string name="shi_jing">诗经</string>
 </resources>

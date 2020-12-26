@@ -8,7 +8,9 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.br3ant.ancientpoems.data.entities.Poem
 import com.br3ant.ancientpoems.databinding.ActivityPoemBinding
+import com.br3ant.ancientpoems.repository.AuthorRepository
 import com.br3ant.ancientpoems.repository.PoemRepository
+import com.br3ant.ancientpoems.util.tts.TtsManager
 import com.br3ant.base.BaseActivity
 import com.br3ant.utils.toList
 import com.drake.brv.utils.linear
@@ -24,6 +26,8 @@ class PoemActivity : BaseActivity(R.layout.activity_poem, keepScreenOn = true) {
 
     override fun initView() {
 
+        TtsManager.init()
+
         binding.rvList.linear().setup {
             addType<Poem>(R.layout.item_poem)
 
@@ -34,9 +38,12 @@ class PoemActivity : BaseActivity(R.layout.activity_poem, keepScreenOn = true) {
 
             onLongClick(R.id.item_view) {
                 rxLifeScope.launch {
-                    ToastUtils.showLong(
-                        APP.db.authorDao().findByName(getModel<Poem>().author ?: "")?.displayDesc()
-                    )
+                    TtsManager.speech(getModel<Poem>().ttsTitle())
+                }
+            }
+            onClick(R.id.tv_author) {
+                rxLifeScope.launch {
+                    ToastUtils.showLong(AuthorRepository.findAuthorByName(getModel<Poem>().author ?: "")?.displayDesc())
                 }
             }
         }

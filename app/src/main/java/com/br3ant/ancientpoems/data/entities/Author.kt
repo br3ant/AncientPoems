@@ -29,6 +29,7 @@ class Author {
     fun displayDesc(): String? = when (dynasty) {
         APConstants.DYNASTY_TANG_POEM -> desc
         APConstants.DYNASTY_SONG_CI -> description
+        APConstants.DYNASTY_YUAN_QU -> "未知"
         else -> "未知"
     }
 

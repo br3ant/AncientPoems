@@ -20,6 +20,14 @@ class MainActivity : BaseActivity(R.layout.activity_main, keepScreenOn = true) {
             PoemActivity.start(this, APConstants.DYNASTY_SONG_CI)
         }
 
+        binding.btnYuanQu.setOnClickListener {
+            PoemActivity.start(this, APConstants.DYNASTY_YUAN_QU)
+        }
+
+        binding.btnShiJing.setOnClickListener {
+            PoemActivity.start(this, APConstants.DYNASTY_SHI_JING)
+        }
+
     }
 
 }
